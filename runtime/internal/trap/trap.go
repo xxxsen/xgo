@@ -38,7 +38,7 @@ func trap(infoPtr unsafe.Pointer, recvPtr interface{}, args []interface{}, resul
 	resultNames := funcInfo.ResNames
 
 	// system stack(g0) cannot use defer; skip trapping there.
-	if xgo_runtime.OnSystemStack() {
+	if xgo_runtime.XgoOnSystemStack() {
 		return nil, false
 	}
 
