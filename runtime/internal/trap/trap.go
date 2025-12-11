@@ -37,6 +37,11 @@ func trap(infoPtr unsafe.Pointer, recvPtr interface{}, args []interface{}, resul
 	argNames := funcInfo.ArgNames
 	resultNames := funcInfo.ResNames
 
+	// system stack(g0) cannot use defer; skip trapping there.
+	if xgo_runtime.OnSystemStack() {
+		return nil, false
+	}
+
 	var begin time.Time
 
 	var pcs [1]uintptr
@@ -333,8 +338,7 @@ func trap(infoPtr unsafe.Pointer, recvPtr interface{}, args []interface{}, resul
 		xgo_runtime.GetG().IncTrappingDepth()
 		defer xgo_runtime.GetG().DecTrappingDepth()
 
-		// NOTE: this defer might be executed on system stack
-		// so cannot defer
+		// system stack cannot reach here because we skip trapping when detected.
 		if postRecorder != nil {
 			postRecorder()
 		}

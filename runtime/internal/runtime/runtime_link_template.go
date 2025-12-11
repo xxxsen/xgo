@@ -38,6 +38,11 @@ func XgoGetCurG() unsafe.Pointer {
 	return runtime.XgoGetCurG()
 }
 
+func XgoOnSystemStack() bool {
+	//
+	return runtime.XgoOnSystemStack()
+}
+
 func XgoPeekPanic() (interface{}, uintptr) {
 	//
 	return runtime.XgoPeekPanic()
