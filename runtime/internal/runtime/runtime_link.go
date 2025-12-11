@@ -36,6 +36,11 @@ func XgoGetCurG() unsafe.Pointer {
 	return nil
 }
 
+func XgoOnSystemStack() bool {
+	logError("WARNING: failed to link runtime.XgoOnSystemStack(requires xgo).")
+	return false
+}
+
 func XgoPeekPanic() (interface{}, uintptr) {
 	logError("WARNING: failed to link runtime.XgoPeekPanic(requires xgo).")
 	return nil, 0

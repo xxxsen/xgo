@@ -93,6 +93,14 @@ func XgoGetCurG() unsafe.Pointer {
 	return unsafe.Pointer(&curg.__xgo_g)
 }
 
+// XgoOnSystemStack reports whether the current code is
+// executing on the system stack (g0). When this is true
+// runtime defer is not allowed.
+func XgoOnSystemStack() bool {
+	gp := getg()
+	return gp == gp.m.g0
+}
+
 // Peek panic without recover
 // check gorecover() for implementation details
 func XgoPeekPanic() (interface{}, uintptr) {
